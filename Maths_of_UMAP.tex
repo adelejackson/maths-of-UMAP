@@ -339,6 +339,44 @@ For example, the map taking $2\mapsto 4$ and all other $\lambda\in Forget(f)$
 to $0$ is a valid map of sets, but is not the image under $Forget$ of
 a morphism in $\textbf{Vect}$.
 
+Now, given two functors $F, G: \curC\to\curD$, we might wish to compare them.
+We capture this idea with the definition of a \emph{natural transformation}.
+One motivating example for this is the natural isomorphism of a vector space
+with its double dual.
+The double dual functor takes a vector space $V$ to its double dual $V**$ by
+mapping $v\in V$ to the map $f\mapsto f(v)$, which is evaluation at $v$.
+The functor takes a linear transformation $T: V\to W$ to the double dual of the
+linear transformation, which is defined by
+$$T**(\phi)(f)(v) = \phi\of (T*(f))(v) = \phi\of f\of T(v).$$
+The statement that the map taking $V$ to $V**$ is a ``natural isomorphism'' can
+be formalised by saying that there is a natural transformation from
+the identity functor on $\textbf{Vect}$ to the double dual functor, that is an
+isomoprhism on all the objects.
+A natural transformation is defined as follows.
+
+\begin{definition}
+  Let $\curC$ and $\curD$ be categories, with $F, G: \curC\to \curD$ functors
+  between them.
+  A \emph{natural transformation} $\alpha: F\to G$ is a morphism
+  $\alpha_X: FX\to GX$ for each $X\in \Obj(\curC)$ such that for any
+  $f: X\to Y$ in $\curC$, $Gf\of \alpha_X = \alpha_Y\of Ff: FX\to GY$.
+\end{definition}
+
+Some intuition behind this is that a natural transformation $\alpha$ gives maps
+between the images of the two functors that are compatible with all the
+images of the morphisms between them, without knowing anything about these
+morphisms. 
+
+Using natural transformations, we can make a new category from any pair of
+categories $\curC$ and $\curD$.
+We can compose natural transformations as follows.
+Let $F, G, H$ be functors $\curC\to \curD$, with $\alpha$ a natural
+transformation from $F$ to $G$, and $\beta$ one from $G$ to $H$.
+Then there is a natural transformation $\beta\of\alpha$ from $F$ to $H$ with
+$(\beta\of\alpha)_X = \beta_X\of\alpha_X$.
+One can check that we can make a category whose objects are functors
+$\curC\to\curD$, and morphisms are natural transformations between them.
+
 Given a category $\curC$, we can define the opposite category $\curC^{op}$,
 which we will use in the next section.
 This is the category whose objects are
@@ -356,23 +394,7 @@ interpret the opposite morphisms as restrictions.) If we imagine each morphism
 $f: X\to Y$ in $\curC$ as an arrow between its domain $X$ and codomain $Y$,
 $\curC^{op}$ is the category where we ``turn all the arrows around''.
 
-We can also define maps between functors themselves.
-Let $\curC$ and $\curD$ be
-categories, with functors $F, G: \curC\to \curD$.
-A \emph{natural
-transformation} $\alpha: F\to G$ is a morphism $\alpha_X: FX\to GX$ for each
-$X\in \Obj(\curC)$ such that for any $f: X\to Y$ in $\curC$, $Gf\of \alpha_X
-= \alpha_Y\of Ff: FX\to GY$.
-
-We can compose natural transformations: if $F, G, H: \curC\to \curD$, with
-$\alpha$ a natural transformation from $F$ to $G$ and $\beta$ one from $G$ to
-$H$, then the map $\beta\alpha$ defined by $(\beta\alpha)_X = \beta_X\of
-\alpha_X$ is a natural transformation from $G$ to $H$.
-Thus, one can check that
-the set of all functors $\curC\to\curD$ forms a category whose morphisms are the
-natural transformations.
-
-Finally, we define an adjunction.
+Finally, we will define an adjunction.
 Suppose we wish to move between two
 categories $\curC$ and $\curD$, using two functors $F: \curC\to\curD$ and $G:
 \curD\to\curC$.
