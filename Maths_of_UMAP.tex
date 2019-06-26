@@ -34,9 +34,12 @@
 \newcommand{\Hom}{\ensuremath{\operatorname{Hom}}}
 \newcommand{\Ext}{\ensuremath{\operatorname{Ext}}}
 \newcommand{\ev}{\ensuremath{\operatorname{ev}}}
-\newcommand{\Obj}{\ensuremath{\operatorname{Obj}}} \newtheorem*{thm}{Theorem}
-\newtheorem*{lemma}{Lemma} \newtheorem{prop}{Proposition}
-\theoremstyle{definition} \newtheorem{defn}{Definition}
+\newcommand{\Obj}{\ensuremath{\operatorname{Obj}}}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem{prop}{Proposition}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
 \newcommand{\divides}{\bigm|} \newcommand{\notdivides}{% \mathrel{\mkern.5mu
   % small adjustment
   % superimpose \nmid to \big|
@@ -247,57 +250,94 @@ spaces\footnote{
   A metric space is a set of points with an associated metric.
 }
 to get a global structure.
-This is where we will use fuzzy simplicial sets.
+This is where we will use the adjunction between extended pseudo-metric spaces
+and fuzzy simplicial sets.
 
 Note that, although we have used the $\RR^N$ metric to develop this theory, the
 idea still holds with any other metric.
 As a result, UMAP can be used with custom distance measures and can handle
 categorical data and other measures of distance between datapoints.
 
-\section{Categories, functors and adjunctions}
+\section{Category theory and adjunctions}
 
 We will now define what an adjunction is, and set up the background for fuzzy
 simplicial sets.
 
 Category theory is a branch of mathematics that unifies common concepts across
 different parts of mathematics.
-For example, one can take the product of two
-vector spaces, or the product of two sets, or two groups.
-Using ideas from
-category theory, we can give one unified definition of a ``product'' and prove
-results about it that are valid in all these contexts.
+For example, one can take the product of two vector spaces, or the product of
+two sets, or two groups.
+Using ideas from category theory, we can give one unified definition of a
+``product'', with all these products as special cases, and prove results about
+it that are valid independently of the specific context.
 
-For the purposes of UMAP, category theory gives us an adjunction between fuzzy
-simplicial sets and finite extended-pseudo-metric spaces.
-An adjunction is
-a translation between different domains of discourse -- for example, there is an
-adjunction between sets and vector spaces that we will discuss later in the
-section.
-We will now define some fundamental category theory
-concepts.\footnote{ See~\cite{Spivak18} for a more detailed exposition of this
-material aimed at scientists.
-We follow~\cite{Riehl} for these definitions.}
+An adjunction is a translation between different domains of discourse.
+For UMAP, the adjunction will let us move from a family of metric spaces to
+a family of fuzzy simplicial sets, where we can take a union, in
+a mathematically sound way.
+Before we can define this translation, we will set up some fundamental category
+theory concepts.\footnote{
+  See~\cite{Spivak18} for a more detailed exposition of this material aimed at
+  scientists.  We follow~\cite{Riehl} for these definitions.
+}
 
-A \emph{category} $\curC$ is a collection of \emph{objects}, $\Obj(\curC)$, and
-between each $X, Y\in\Obj(\curC)$, a collection of \emph{morphisms}
-$\Hom_{\curC}(X, Y)$, satisfying the following conditions.
-We write $f: X\to Y$
-to mean $f\in \Hom_{\curC}(X, Y)$.
-First, we can \emph{compose} morphisms: if
-$f: X\to Y$ and $g: Y\to Z$, there is a specified composite morphism $gf: X\to
-Z$.
-Second, we have \emph{identity morphisms}: for each object $X$, there is
-a specified {identity} morphism $1_X \in \Hom_{\curC}(X, X)$ (that is, $1_X:
-X\to X$).
-Third, the identity morphisms act as the identity under composition:
-for any $f: X\to Y$, $1_Yf = f1_X = f$.
-Finally, composition is
-\emph{associative}: let $f: X\to Y$, $g: Y\to Z$ and $h: Z\to W$ be morphisms.
-Then $h(gf) = (hg)f$.
+\begin{definition}
+  A \emph{category} $\curC$ is a collection of \emph{objects}, $\Obj(\curC)$,
+  and between each $X, Y\in\Obj(\curC)$, a collection of \emph{morphisms}
+  $\Hom_{\curC}(X, Y)$, that satisfy the following conditions.
+  (We write $f: X\to Y$ to mean $f\in \Hom_{\curC}(X, Y)$.)
 
-Two familiar examples of categories are $\textbf{Vect}$, whose objects are real
-vector spaces and morphisms are linear maps, and $\textbf{Set}$, whose objects
-are sets and morphisms are functions between sets.
+  First, we can \emph{compose} morphisms.
+  Let $f: X\to Y$ and $g: Y\to Z$ be morphisms.
+  Then there is a specified composite morphism $gf: X\to Z$.
+  Furthermore, composition is \emph{associative}.
+  Let $f: X\to Y$, $g: Y\to Z$ and $h: Z\to W$ be morphisms.
+  Then $h(gf) = (hg)f$.
+
+  Second, for each object $X$, there is a specified \emph{identity} morphism
+  $1_X: X\to X$.
+  Identity morphisms act as the identity under composition.
+  That is, for any $f: X\to Y$, $1_Yf = f1_X = f$.
+\end{definition}
+
+One familiar example of a category is $\textbf{Vect}$.
+This is the category whose objects are real vector spaces (of all dimensions),
+where the morphisms between two vector spaces $V$ and $W$ are the linear
+transformations $V\to W$.
+
+Another example is $\textbf{Set}$, whose objects are sets, and morphisms are
+functions between sets.
+
+We can define \emph{functors} that let us transform objects and morphisms between them in
+one category to those in another category.
+
+\begin{definition}
+  Let $\curC$ and $\curD$ be categories.
+  A \emph{functor} $F: \curC\to \curD$ is a map from the objects and morphisms
+  of $\curC$ to those of $\curD$ that respects the structure of $\curC$ in the
+  following ways.
+  The functor $F$ must preserve composition, so for all composable morphisms
+  $g$ and $f$, $F(gf) = F(g)F(f)$.
+  It also must fix identities, so that $F(1_X) = 1_{F(X)}$.
+\end{definition}
+
+We give some examples of functors between $\textbf{Vect}$ and $\textbf{Set}$.
+For any category $\curC$, we have the identity functor $\id_{\curC}:
+\curC\to \curC$ that fixes all objects and morphisms.
+There is a ``forgetful'' functor $Forget: \textbf{Vect}\to \textbf{Set}$ that
+takes a vector space to underlying set of its vectors, and a linear map to the
+set map on the underlying sets of the vector spaces.
+For example, $Forget$ takes the vector space $\RR$ to the set $\{\lambda\,|\,
+\lambda\in\RR\}$.
+For an example of its action on morphisms, it takes the map $f: \RR\to\RR$
+mapping $(1)$ to $(2)$ to the map
+$Forget(f): \{\lambda\,|\,\lambda\in\RR\}\to \{\lambda\,|\,\lambda\in\RR\}$
+that takes $\lambda$ to $2\lambda$.
+Note that there are many more maps from $Forget(f)$ to $Forget(f)$ than the
+ones that come from linear transformations.
+For example, the map taking $2\mapsto 4$ and all other $\lambda\in Forget(f)$
+to $0$ is a valid map of sets, but is not the image under $Forget$ of
+a morphism in $\textbf{Vect}$.
 
 Given a category $\curC$, we can define the opposite category $\curC^{op}$,
 which we will use in the next section.
@@ -315,18 +355,6 @@ In this case, we
 interpret the opposite morphisms as restrictions.) If we imagine each morphism
 $f: X\to Y$ in $\curC$ as an arrow between its domain $X$ and codomain $Y$,
 $\curC^{op}$ is the category where we ``turn all the arrows around''.
-
-We can now define maps between categories.
-A \emph{functor} between two
-categories $F: \curC\to \curD$ is a map from the objects and morphisms of
-$\curC$ to those of $\curD$ that sends the identity $1_X$ to $1_{F(X)}$, and
-preserves composition (that is, $F(gf) = F(g)F(f)$).
-For example, we can define
-a functor $\textbf{Vect}\to \textbf{Set}$ taking a vector space to its
-underlying set of points, and taking a linear map between vector spaces to the
-induced map on the set of points.
-Note that, for any category $\curC$, we have
-an identity functor $1_\curC$ that is the identity on all objects and morphisms.
 
 We can also define maps between functors themselves.
 Let $\curC$ and $\curD$ be
