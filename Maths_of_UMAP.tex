@@ -48,56 +48,51 @@
 %\chead{Banach space of continuous functions}
 \begin{document} \thispagestyle{empty} \maketitle
 
-
 \section{Introduction}
 
-UMAP (Uniform Manifold Approximation and Projection) is
-a new dimension reduction technique~\cite{McInnes18}, currently
+UMAP (Uniform Manifold Approximation and Projection) is a new dimension
+reduction technique~\cite{McInnes18}, currently
 implemented~\cite{McInnesGithub, MelvilleGithub} for both labelled and
-unlabelled data.  Figure~\ref{fig_example_embedding} shows a comparison of UMAP
-embeddings with some other standard dimension reduction algorithms.  It gives
-similarly good outputs for visualisation as t-SNE, with a substantially better
-runtime, and may capture more of the global structure of the data.  The current
-implementation also allows for embedding of new data into an existing model, so
-can be used as a preprocessing step in data analysis.  Some example images,
-compared to those from t-SNE, are available at~\cite{Melville}, and runtime
-benchmarking is at~\cite{McInnesBenchmarking}.  Excitingly, it is based on
-strong and general mathematical theory.  This has allowed for its implementation
-for both unsupervised and semi-supervised dimension reduction and for datasets
-with custom metrics (such as categorical data).
+unlabelled data.
+Figure~\ref{fig_example_embedding} shows a comparison of UMAP embeddings with
+the outputs of some other standard dimension reduction algorithms.
+UMAP gives similarly good outputs for visualisation as t-SNE, with
+a substantially better runtime (see~\cite{McInnesBenchmarking}), and may
+capture more of the global structure of the data.
+The current UMAP implementation also allows UMAP to be used as a preprocessing
+step in a machine learning pipeline, as new data can be embedded into an
+existing model.
 
-%#\begin{figure} \centering
-%#  \includegraphics[width=1.05\textwidth]{figures/dim-red-comparison-nips.png}
-%#  \caption{Embeddings from UMAP, t-SNE, LargeVis, Laplacian Eigenmaps and PCA on
-%#  some standard datasets. Image taken from~\cite{McInnes18}.}
-%#  \label{fig_example_embedding}
-%#\end{figure}
-
-The mathematics behind UMAP is quite abstract, and most presentations of it
-assume a substantial background in topology and category theory.  We
-will give a brief exposition of the theory without (hopefully) assuming too much
-prior knowledge.  We would highly recommend reading further in category
-theory and algebraic topology if you are interested in these types
-of techniques (see Further Reading).  Before reading this document, we would
-recommend watching~\cite{McInnesVideo} for a more intuitive motivation of the
-algorithm.  For a direct explanation of the algorithm that does not explain the
-mathematics behind it see~\cite[Section 3]{McInnes18}.
+Excitingly, UMAP is based on strong and general mathematical theory, which does
+not depend on a Euclidean metric.
+As a result, UMAP can be used for datasets with a mixture of categorical and
+continuous features.
 
 The main mathematical result behind UMAP is that there is an adjunction between
 finite fuzzy simplicial sets and finite extended pseudo-metric spaces.
-We will explain what this means and why this is a useful result.
+We will discuss what this statement means and why it is useful.
+Given a dataset $D$ in $\RR^N$, we wish to find a good representation of $D$ in
+a lower-dimensional space, $\RR^m$.
+We wish to develop a good loss function for evaluating a lower-dimensional
+representation, so we can minimise this loss.
+To do this, we will construct a fuzzy simplicial set from a dataset.
+A fuzzy simplicial set (which we will define in Section~\ref{section_fss}) is
+an abstract description of a topological space, with probabilities on its
+elements that we will interpret as giving their size.
+We can then compare the fuzzy simplicial set from our dataset $D$ with that
+from a proposed low-dimensional representation.
 
 \section{Approximating the underlying manifold}
 \label{section_uniform}
 
-UMAP is an algorithm to find a representation of a given dataset $D$ in $\RR^N$
-in a lower-dimensional space $\RR^m$.  We think of the datapoints as being drawn
-from some Riemannian manifold\footnote{ A Riemannian manifold, for our purposes,
-is a space that locally looks like Euclidean space, in which we have
-well-defined notions of distances, angles, and volumes. For example, the surface
-of a unit sphere is a two-dimensional Riemannian manifold.  } $M$, then mapped
-into $\RR^N$ by some injective map $\phi: M\to \RR^N$. See
-Figure~\ref{fig_M_in_Rn} for an illustration of the setup.
+Given a dataset $D$ in $\RR^N$, we think of the datapoints as being drawn from
+some Riemannian manifold\footnote{
+  A Riemannian manifold is a space that locally looks like Euclidean space, in
+  which we have well-defined notions of distances, angles, and volumes.
+  For example, the surface of a unit sphere in $\RR^3$ is a two-dimensional
+  Riemannian manifold.
+} $M$, then mapped into $\RR^N$ by some injective map $\phi: M\to\RR^N$.
+See Figure~\ref{fig_M_in_Rn} for an illustration of this setup.
 
 One thought we might have is to reconstruct $M$, then find a good map from $M$
 into $\RR^m$.  To do this, we assume that $D$ is uniformly drawn from $M$, as in
