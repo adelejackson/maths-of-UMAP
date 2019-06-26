@@ -45,8 +45,9 @@
     \newcommand{\Res}{\text{Res}} \newcommand{\del}{\partial}
 
 \title{The mathematics of UMAP} \author{Adele Jackson}
-%\chead{Banach space of continuous functions}
-\begin{document} \thispagestyle{empty} \maketitle
+\begin{document}
+\thispagestyle{empty}
+\maketitle
 
 \section{Introduction}
 
@@ -102,17 +103,15 @@ some Riemannian manifold\footnote{
 } $M$, then mapped into $\RR^N$ by some injective map $\phi: M\to\RR^N$.
 See Figure~\ref{fig_M_in_Rn} for an illustration of this setup.
 
-One thought we might have is to reconstruct $M$, then find a good map from $M$
-into $\RR^m$.  To do this, we assume that $D$ is uniformly drawn from $M$, as in
-the example in Figure~\ref{fig_M_in_Rn}. (Note that parts of $M$ might be
-stretched out or compressed under the map $\phi$ into $\RR^N$, so this does
-{\textbf{not}} imply that the data is uniformly distributed in $\RR^N$.) This
-assumption means that $D$ approximates $M$ well.  (This is also where the `U' in
-UMAP comes from.) We will also assume that $M$ is locally connected and that
-there are enough points in $D$ that no point in $D$ is isolated in its own
-connected component.  These connectivity assumptions imply that every point in
-$D$ is connected in $M$ to its nearest neighbour in $D\inj \RR^N$.  This
-assumption will be used in Section~\ref{section_adjunction}.
+One approach to finding a low-dimensional representation of $D$ is to
+reconstruct $M$, then find a good map from $M$ into $\RR^m$.
+To do this, we assume that $D$ is uniformly drawn from $M$, as in
+the example in Figure~\ref{fig_M_in_Rn}.
+(Note that parts of $M$ might be stretched out or compressed under the map
+$\phi$ into $\RR^N$, so this does {\textbf{not}} imply that the data is
+uniformly distributed in $\RR^N$.)
+This assumption means that $D$ approximates $M$ well.
+(This is also where the `U' in UMAP comes from.)
 
 \begin{figure}
     \centering
@@ -177,48 +176,66 @@ assumption will be used in Section~\ref{section_adjunction}.
     \label{fig_M_in_Rn}
 \end{figure}
 
-Finally, we will assume that the metric\footnote{ A \textit{metric} on a space
-$X$ is a function $d: X\times X\to \RR$ such that $d(x, y) \geq 0$, $d(x, y)
-= d(y, x)$, $d(x, y) = 0$ if and only if $x = y$, and $d(x, z) \leq d(x, y)
-+ d(y, z)$.  We view $d(x, y)$ as the distance from $x$ to $y$.  } on $M$ is
-locally constant, as this property gives us the following lemma, which will let
-us approximate distances in $M$ between points in $D$ that are close enough in
-$\RR^N$.  Note that, as $M$ is embedded in $\RR^N$, we can measure distance and
-volume within $M$ in two ways: that of the intrinsic metric on $M$, and that of
-the metric induced by $\RR^N$.
+Note that we have two notions of distance between our datapoints: the distance
+from $\RR^N$, and the ``true'' distance in $M$.
+To reconstruct $M$, we wish to reconstruct thsi second distance.
+If we assume that the metric\footnote{
+  A \textit{metric} on a space $X$ is a function $d: X\times X\to \RR$ such that
+  $d(x, y) \geq 0$, $d(x, y) = d(y, x)$, $d(x, y) = 0$ if and only if $x = y$,
+  and $d(x, z) \leq d(x, y) + d(y, z)$.
+  We view $d(x, y)$ as the distance from $x$ to $y$.
+}
+on $M$ is locally constant, we get the following lemma.
+We will show that this lemma allows us to approximate the distance between two
+points $x, y\in D$ as measured in $M$, so long as $x$ and $y$ are close enough
+in $\RR^N$, by normalising by the distance from $x$ to its $k$-nearest
+neighbour.
 
-\begin{lemma}[\cite{McInnes18}] Let $(M, g)$ be a Riemannian manifold\footnote{
+\begin{lemma}[\cite{McInnes18}]
+  Let $(M, g)$ be a Riemannian manifold\footnote{
     In this, $M$ is the manifold and $g$ is a two-form that gives us measures of
-    distance, volumes and angles.} embedded in $\RR^n$. Let $p\in M$ be a point.
-  Suppose that $g$ is locally constant.\footnote{ To be precise, we assume that
-  there is an open neighbourhood $U$ with $p\in U$ on which $g$ is locally
-  constant, such that $g$ is a constant diagonal matrix in the ambient
-  coordinates.} Let $B$ be a ball in $M$, containing $p$, whose volume is
-  $\frac{\pi^{n/2}}{\Gamma(n/2+1)}$ with respect to the metric on $M$.  Then the
-  distance of the shortest path in $M$ from $p$ to a point $q\in B$ is
+    distance, volumes and angles.
+  } embedded in $\RR^n$.
+  Let $p\in M$ be a point.
+  Suppose that $g$ is locally constant.\footnote{
+    To be precise, we assume that there is an open neighbourhood $U$ with
+    $p\in U$ on which $g$ is locally constant, such that $g$ is a constant
+    diagonal matrix in the ambient coordinates.
+  }
+  Let $B$ be a ball in $M$, containing $p$, whose volume is
+  $\frac{\pi^{n/2}}{\Gamma(n/2+1)}$ with respect to the metric on $M$.
+  Then the distance of the shortest path in $M$ from $p$ to a point $q\in B$ is
   $\frac{1}{r}d_{\RR^n}(p, q)$, where $r$ is the radius of $B$ in $\RR^n$ and
-  $d_{\RR^n}(p, q)$ is the distance from $p$ to $q$ in $\RR^n$.  \end{lemma}
+  $d_{\RR^n}(p, q)$ is the distance from $p$ to $q$ in $\RR^n$.
+\end{lemma}
 
-Its consequence for us is that we can approximate distances around $M$ close to
-our datapoints by scaling the distance in $\RR^N$.  We do this as follows.  As
-we have assumed our data is uniformly distributed on $M$, any ball of a fixed
-volume $R$ on $M$ should contain the same number of datapoints.  Working
-backwards, let $N_k(x)$ be the ball in $\RR^N$ around a datapoint $x$ that
-contains its $k$ nearest neighbours in $\RR^N$ (with respect to the distance in
-$\RR^N$).  Then for any datapoint $x_i$, consider the neighbourhood of $M$ that
-is sent to $N_k(x_i)$ in $\RR^N$ (that is, consider $\phi^{-1}(N_k(x_i))$).
-This ball should have the same volume as if we followed the same procedure for
-any other datapoint $x_j$.  By the lemma, for $k$ small enough, we can
-approximate distances in $M$ from $x_i$ to one of its $k$ nearest neighbours
-$x_j$ as follows.  Fix $k$ as a hyperparameter, and write $\{x_{i_1},\dots,
-x_{i_k}\}$ for the $k$ nearest neighbours of $x_i$.  Then, from the lemma, we
-can derive that the distance in $M$ from $x_i$ to $x_j$ is approximately
-$\frac{1}{r_i}d_{\RR^N}(x_i, x_j)$, where $r_i$ is the distance to the $k^{th}$
-nearest neighbour of $x_i$.  To smooth this value, and reduce the impact of
-happening to have the $k^{th}$ nearest neighbour be very far away while the
-$(k-1)^{th}$ nearest neighbours are clustered close to $x_i$, we take $r_i$ to
-be the value such that $$\sum_{j=1}^k\exp\left(\frac{-|x_i-x_{i_j}|}{r_i}\right)
-= \log_2(k).$$
+We approximate distances in $M$ between nearby datapoints as follows.
+Fix a radius $R$.
+As the dataset $D$ is uniformly distributed in $M$, the expected number of
+datapoints in any radius $R$ ball in $M$ is some constant $k$.
+Now, for $x\in D$, let $N_k(x)$ be the ball in $\RR^N$, centred at $x$, that
+contains its $k$ nearest neighbours.
+Let $\tilde{N}_k(x)$ be the preimage of $N_k(x)$ in $M$ (this is $\phi^{-1}(N_k(x))$).
+If $k$ is small enough that $g$ is locally constant on $\tilde{N}_k(x)$, then
+this preimage will be a ball of some radius, and the expected value of this
+radius will be $R$.
+By the lemma we can reconstruct
+distances within $N_k(x)$ by normalising by $\frac{R}{r_x}$ where $r_x$ is the
+distance from $x$ to its $k$-nearest neighbour
+As we only care about distances up to a constant factor, it suffices to
+normalise by $r_x$ in each of the $N_k(x)$ for $x\in D$.
+
+Thus, by the lemma, we can approximate distances from $x$ to points in $N_k(x)$
+as follows.
+Fix a value of $k$.
+Now we can calculate the distance in $M$ from $x_i$ to $x_j$ to be
+approximately
+$$\frac{1}{r_i}d_{\RR^N}(x_i, x_j),$$
+where $r_i$ is the distance from $x_i$ to its $k^{th}$-nearest neighbour.
+To reduce the impact of noise in the distribution of datapoints on the value of
+$r_i$, in practice we take $r_i$ to be the value such that
+$$\sum_{j=1}^k\exp\left(\frac{-|x_i-x_{i_j}|}{r_i}\right) = \log_2(k)$$
+where $\{x_{i_1},\ldots,x_{i_k}\}$ are the $k$ nearest neighbours of $x_i$.
 
 This setup presents us with a problem. The distance we get from $x_i$ to $x_j$
 using this method will in general be different to that from $x_j$ to $x_i$, as
@@ -229,8 +246,9 @@ spaces\footnote{ A metric space is a set of points with an associated metric.}
 to get a global structure, where we have some idea of uncertainty on the metric
 spaces.  For this, we will use fuzzy simplicial sets.
 
-Note that, although we have used the $\RR^N$ metric to develop this theory, it
-still holds with any other metric.  UMAP can be used with custom distance
+Note that, although we have used the $\RR^N$ metric to develop this theory, the
+idea still holds with any other metric.
+UMAP can be used with custom distance
 measures and so can handle categorical data and other measures of distance
 between datapoints.
 
