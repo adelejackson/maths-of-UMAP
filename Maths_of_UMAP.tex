@@ -281,7 +281,7 @@ theory concepts.\footnote{
   scientists.  We follow~\cite{Riehl} for these definitions.
 }
 
-\begin{definition}
+\begin{defn}
   A \emph{category} $\curC$ is a collection of \emph{objects}, $\Obj(\curC)$,
   and between each $X, Y\in\Obj(\curC)$, a collection of \emph{morphisms}
   $\Hom_{\curC}(X, Y)$, that satisfy the following conditions.
@@ -298,7 +298,7 @@ theory concepts.\footnote{
   $1_X: X\to X$.
   Identity morphisms act as the identity under composition.
   That is, for any $f: X\to Y$, $1_Yf = f1_X = f$.
-\end{definition}
+\end{defn}
 
 One familiar example of a category is $\textbf{Vect}$.
 This is the category whose objects are real vector spaces (of all dimensions),
@@ -311,7 +311,7 @@ functions between sets.
 We can define \emph{functors} that let us transform objects and morphisms between them in
 one category to those in another category.
 
-\begin{definition}
+\begin{defn}
   Let $\curC$ and $\curD$ be categories.
   A \emph{functor} $F: \curC\to \curD$ is a map from the objects and morphisms
   of $\curC$ to those of $\curD$ that respects the structure of $\curC$ in the
@@ -319,7 +319,7 @@ one category to those in another category.
   The functor $F$ must preserve composition, so for all composable morphisms
   $g$ and $f$, $F(gf) = F(g)F(f)$.
   It also must fix identities, so that $F(1_X) = 1_{F(X)}$.
-\end{definition}
+\end{defn}
 
 We give some examples of functors between $\textbf{Vect}$ and $\textbf{Set}$.
 For any category $\curC$, we have the identity functor $\id_{\curC}:
