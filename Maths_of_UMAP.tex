@@ -367,12 +367,12 @@ Now, given two functors $F, G: \curC\to\curD$, we might wish to compare them.
 We capture this idea with the definition of a \emph{natural transformation}.
 One motivating example for this is the natural isomorphism of a vector space
 with its double dual.
-The double dual functor takes a vector space $V$ to its double dual $V**$ by
+The double dual functor takes a vector space $V$ to its double dual $V^{**}$ by
 mapping $v\in V$ to the map $f\mapsto f(v)$, which is evaluation at $v$.
 The functor takes a linear transformation $T: V\to W$ to the double dual of the
 linear transformation, which is defined by
-$$T**(\phi)(f)(v) = \phi\of (T*(f))(v) = \phi\of f\of T(v).$$
-The statement that the map taking $V$ to $V**$ is a ``natural isomorphism'' can
+$$T^{**}(\phi)(f)(v) = \phi\of (T^*(f))(v) = \phi\of f\of T(v).$$
+The statement that the map taking $V$ to $V^{**}$ is a ``natural isomorphism'' can
 be formalised by saying that there is a natural transformation from
 the identity functor on $\textbf{Vect}$ to the double dual functor, that is an
 isomoprhism on all the objects.
