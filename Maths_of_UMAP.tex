@@ -324,6 +324,7 @@ one category to those in another category.
 We give some examples of functors between $\textbf{Vect}$ and $\textbf{Set}$.
 For any category $\curC$, we have the identity functor $\id_{\curC}:
 \curC\to \curC$ that fixes all objects and morphisms.
+
 There is a ``forgetful'' functor $Forget: \textbf{Vect}\to \textbf{Set}$ that
 takes a vector space to underlying set of its vectors, and a linear map to the
 set map on the underlying sets of the vector spaces.
@@ -338,6 +339,29 @@ ones that come from linear transformations.
 For example, the map taking $2\mapsto 4$ and all other $\lambda\in Forget(f)$
 to $0$ is a valid map of sets, but is not the image under $Forget$ of
 a morphism in $\textbf{Vect}$.
+
+Note that there is no way to reverse $Forget$, as once we have applied it to
+a vector space, there is no way to reconstruct the sums or scalar multiples of
+vectors, or to recover a basis.
+We might hope to find a functor $F: \textbf{Vect}\to\textbf{Set}$ that we can
+reverse.
+For example, we might wish to construct a functor $F$ that takes a vector space
+$V$ to a particular basis for it.
+However, even if there were some way to canonically choose a basis for each
+vector space, this would not naturally give us a functor.
+This is as there is no nice morphism between sets of basis elements to send,
+for example, the linear transformation $v\mapsto 2\cdot v$ to.
+
+A particularly nice functor going in the other direction is $Free:
+\textbf{Set}\to \textbf{Vect}$.
+This functor takes a set $\{x_i\}_{i\in I}$ to the free vector space on its
+elements with real coefficients.
+Now we can take any morphism $f: X\to Y$ between sets to a linear
+transformation in a canonical way, by letting $Free(f): Free(X)\to Free(Y)$
+take the basis element $Free(x_i)\in Free(X)$ to the basis element
+$Free(f(x_i))\in Free(Y)$.
+As a linear transformation is uniquely determined by its action on a basis for
+the vector space, this is well-defined.
 
 Now, given two functors $F, G: \curC\to\curD$, we might wish to compare them.
 We capture this idea with the definition of a \emph{natural transformation}.
