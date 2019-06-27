@@ -363,10 +363,21 @@ $Free(f(x_i))\in Free(Y)$.
 As a linear transformation is uniquely determined by its action on a basis for
 the vector space, this is well-defined.
 
-Now, given two functors $F, G: \curC\to\curD$, we might wish to compare them.
-We capture this idea with the definition of a \emph{natural transformation}.
-One motivating example for this is the natural isomorphism of a vector space
-with its double dual.
+Two functors $F: \curC\to\curD$ and $G: \curD\to\curC$ form an
+\emph{adjunction} if they translate between the two categories in a compatible
+way.
+The adjunction between finite fuzzy simplicial sets and finite extended
+pseudo-metric spaces will allow us to take our family of finite extended
+pseudo-metric spaces, each defined relative to a datapoint, and convert it to
+a family of finite fuzzy simplicial sets, 
+The functors $F$ and $G$ give us an adjunction if there is a particularly nice
+pair of \emph{natural transformations} between $FG$ and the identity on
+$\curD$, and between $GF$ and the identity on $\curC$.
+
+A \emph{natural transformation} lets us compare two functors $F, G:
+\curC\to\curD$.
+One motivating example for wanting to compare functors is the natural
+isomorphism of a vector space with its double dual.
 The double dual functor takes a vector space $V$ to its double dual $V^{**}$ by
 mapping $v\in V$ to the map $f\mapsto f(v)$, which is evaluation at $v$.
 The functor takes a linear transformation $T: V\to W$ to the double dual of the
@@ -400,6 +411,8 @@ Then there is a natural transformation $\beta\of\alpha$ from $F$ to $H$ with
 $(\beta\of\alpha)_X = \beta_X\of\alpha_X$.
 One can check that we can make a category whose objects are functors
 $\curC\to\curD$, and morphisms are natural transformations between them.
+
+
 
 Given a category $\curC$, we can define the opposite category $\curC^{op}$,
 which we will use in the next section.
