@@ -424,7 +424,7 @@ when we wish to translate between inequivalent categories (e.g. between sets
 and vector spaces, or topological spaces and simplicial sets).
 An adjunction is a weakening of this equivalence idea. 
 
-\begin{definition}
+\begin{defn}
   The functors $F: \curC\to\curD$ and $G: \curD\to\curC$ form an adjunction,
   notated by $F\dashv G$, if there are natural transformations $\eta:
   1_\curC\to GF$ and $\epsilon: FG\to 1_\curD$ satisfying the following 
@@ -432,7 +432,7 @@ An adjunction is a weakening of this equivalence idea.
   $$\epsilon_{F(c)}\of F(\eta_c) = \id_{F(c)}\text{ and} $$
   $$G(\epsilon_d)\of \eta_{G(d)} = \id_{G(d)}$$
   for all $c\in\curC$, $d\in\curD$.
-\end{definition}
+\end{defn}
 
 Note that this definition is not symmetric in $F$ and $G$ (hence why we use the
 asymmetric notation $F\dashv G$).
@@ -450,13 +450,13 @@ morphism sets.
 
 Finally, given a category $\curC$, we will define the opposite category $\curC^{op}$,
 which we will use in the next section.
-\begin{definition}
+\begin{defn}
   Let $\curC$ be a category.
   The \emph{opposite category}, $\curC^{op}$, is the category whose objects are
   $\Obj(\curC)$, and whose morphisms are defined as follows.
   We set $\Hom_{\curC^{op}}(X, Y) = \Hom_{\curC}(Y, X)$, with composition given
   by $g^{op}f^{op} = (fg)^{op}$.
-\end{definition}
+\end{defn}
 Note that, for each morphisms $f: X\to Y$ in $\curC$, there is an opposite
 morphism $f^{op}: Y\to X$ in $\curC^{op}$.
 If we imagine each morphism $f: X\to Y$ in $\curC$ as an arrow between its
