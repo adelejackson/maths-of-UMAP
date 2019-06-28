@@ -82,7 +82,9 @@ continuous features.
 
 The main mathematical result behind UMAP is that there is an adjunction between
 finite fuzzy simplicial sets and finite extended pseudo-metric spaces.
-We will discuss what this statement means and why it is useful.
+In this document, we will explain what this statement means and why it is
+useful.
+
 Given a dataset $D$ in $\RR^N$, we wish to find a good representation of $D$ in
 a lower-dimensional space, $\RR^m$.
 We wish to develop a good loss function for evaluating a lower-dimensional
@@ -91,8 +93,17 @@ To do this, we will construct a fuzzy simplicial set from a dataset.
 A fuzzy simplicial set (which we will define in Section~\ref{section_fss}) is
 an abstract description of a topological space, with probabilities on its
 elements that we will interpret as giving their size.
+We will build a partially-defined metric space relative to each vertex, then
+use the adjunction to convert this family of metric spaces to a family of fuzzy
+simplicial sets.
+In the algorithm, this step corresponds to constructing the adjacency matrix
+$A$ for a weighted directed graph~\cite[Section 3.1]{McInnes18}.
+We then take a union of this family, which corresponds to constructing the
+symmetric matrix $B = A+A^T-A\circ A^T$ where $\circ$ is the Hadamard product.
 We can then compare the fuzzy simplicial set from our dataset $D$ with that
-from a proposed low-dimensional representation.
+from a proposed low-dimensional representation, to find the low-dimensional
+representation that minimises the cross entropy loss between the two fuzzy
+sets.
 
 \section{Approximating the underlying manifold}
 \label{section_uniform}
@@ -466,8 +477,7 @@ the arrows around''.
 These opposite morphisms are formal maps, and there is in general not an answer
 to the question of where $f^{op}$ sends some $x\in X$.
 In the special case where the morphisms in $\curC$ are inclusion maps, we can
-however interpret the opposite maps as restrictions.
-
+interpret the opposite maps as restrictions.
 
 \section{Fuzzy simplicial sets}
 \label{section_fss}
