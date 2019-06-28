@@ -640,7 +640,7 @@ One can check that we have the relation that, for $i\leq j$, $d_id_j
 As these face maps are enough to characterise the simplices and how they are
 glued together, we can generalise a simplicial complex in the following way.
 
-\begin{defn}
+\begin{defn}[Delta complex]
   A \emph{Delta complex} $X$ is a collection of sets $X^i$ with, for each
   $n\geq 0$ and $0\leq i\leq n$, a map $d_i: X^{n}\to X^{n-1}$ satisfying the
   relation $d_id_j = d_{j-1}d_i$ for all $i\leq j$.
@@ -654,46 +654,53 @@ In a Delta complex, two distinct simplices may share the same vertex set.
 %For example, the cone depicted in Figure~\ref{fig_cone} is a Delta complex but
 %not a simplicial complex.
 
-We can define Delta complexes in category theoretic language.
-Let
-$\hat{\Delta}$ be the category whose elements are the finite ordered sets $[n]
-= [0,1,\ldots, n]$ and morphisms are strictly order-preserving maps $[m]\to
-[n]$.
-Then a Delta complex is a functor $X: \hat{\Delta}^{op}\to \textbf{Set}$.
+Unlike simplicial complexes, we can give an equivalent definition of Delta
+complexes in category theoretic language.
 
-We can translate between our two definitions of Delta complex as follows.
-The
-set $X([n])$ is the $n$-simplices of the Delta complex.
-A map in
-$\hat{\Delta}^{op}$ from $[n]$ to $[n-1]$, which is the opposite of an
-order-preserving injection, is then a face map.
-We can write maps from $[m]\to
-[n]$ in $\hat{\Delta}$ as compositions of maps $[k]\to [k+1]$, so in general the
-images of the morphisms under $X$ are compositions of face maps.
+\begin{defn}[Delta complex II]
+  Let $\hat{\Delta}$ be the category whose objects are finite ordered sets
+  $$[n] := [0,1,\dots,n]$$
+  and whose morphisms are strictly order-preserving maps $[m]\to[n]$.
+  A \emph{Delta complex} is a functor $X: \hat{\Delta}^{op}\to \textbf{Set}$.
+\end{defn}
 
-Now we will define a simplicial set.
-Let $\Delta$ be the category whose
-elements are the finite ordered sets $[n]$, and whose morphisms are
-order-preserving maps $[m]\to [n]$.
-(Compare to $\hat{\Delta}$ where the
-morphisms are strictly order-preserving maps.)
+We can translate between this definition and the previous one as follows.
+Interpret the set $X([n])$ as a list of the $n$-simplices of the Delta complex.
+Note that all strictly order-preserving maps $[m]\to[n]$ factor as compositions
+of maps $[k]\to[k+1]$.
+Thus it suffices to consider the images of maps $[k+1]\to[k]$ in
+$\hat{\Delta}^{op}$ to describe the images of the morphisms.
+Suppose $f: [k]\to[k+1]$ is a morphism in $\hat{\Delta}$.
+This is a order-preserving injection, and can be uniquely described by the
+number $i\in[k+1]$ that is not in its image.
+We can interpret $f^{op}$ as a restriction map that drops one number.
+Now its image under $X$ takes a $(k+1)$-simplex to a $k$-simplex, and we
+interpret it as the $i^{th}$ face map.
+
+We are now ready to define a simplicial set.
 
 \begin{defn}
+  Let $\Delta$ be the category whose objects are the finite ordered sets $[n]$,
+  and whose morphisms are order-preserving maps $[m]\to[n]$.
   A \emph{simplicial set} is a functor $X: \Delta^{op}\to \textbf{Set}$.
 \end{defn}
 
-The difference between a Delta complexes and a simplicial set is that in
-a simplicial set, we allow degenerate simplices.
-For example, in $\Delta$,
-there is a map $[0, 1, 2]\to [0, 1]$ that takes $0\mapsto 0$, $1\mapsto 1$ and
-$2\mapsto 1$.
-The image of this map under a simplicial set $X$ is a map $s:
-X^1\to X^2$ that takes 1-simplex (an edge) $e\in X^1$ to some ``2-simplex'' in
+Note that the only difference between this definition and the categorical
+definition of a Delta complex is that morphisms in $\Delta$ need only be weakly
+order-preserving.
+
+The effect of this difference between $\hat{\Delta}$ and $\Delta$ is that in
+a simplicial set we allow degenerate simplices.
+
+For example, one morphism in $\Delta$ is $f:[2]\to[1]$ mapping $0\mapsto 0$,
+$1\mapsto 1$ and $2\mapsto 2$.
+Thus, for a simplicial set $X: \Delta^{op}\to\textbf{Set}$, there is a map
+$X(f): X^1\to X^2$ that takes a 1-simplex $e$ in $X^1$ to some ``2-simples'' in
 $X^2$.
-We can interpret this 2-simplex as a \emph{degenerate} 2-simplex (a
-triangle) that has been collapsed into an edge.
-A simplicial set carries the
-information of all its degenerate simplices.
+We interpret $X(f)(e)$ to be a 2-simplex (a triangle) that has been collapsed
+into an edge, which we call a \emph{degenerate} simplex.
+A simplicial set carries the information of all possible degenerate simplices,
+while a Delta complex has none of them.
 
 A \emph{fuzzy set} is a generalisation of a set where, rather than elements
 being either in the set or not, there is a continuous membership function which
