@@ -761,11 +761,14 @@ We can now define a fuzzy simplicial set.
 
 \begin{defn}
   A \emph{fuzzy simplicial set} is a functor $X: \Delta^{op}\to \textbf{Fuzz}$.
+  The category $\textbf{sFuzz}$ is the category whose objects are fuzzy
+  simplicial sets, and morphisms are natural transformations between them.
 \end{defn}
 
 One nice property of these fuzzy simplicial sets is that the membership
 strength of the face of a simplex is at least the membership strength of the
 simplex.
+
 
 \section{Converting between metric spaces and fuzzy simplicial sets}
 \label{section_adjunction}
@@ -776,8 +779,7 @@ simplicial sets.
 Let $x_i$ be a fixed datapoint in the dataset $D$.
 Recall that, from Section~\ref{section_uniform}, using the manifold metric
 based at $x_i$, we can approximate the distance based at $x_i$ between points
-$x_j, x_k\in D$
-by 
+$x_j, x_k\in D$ by 
 $$d_{x_i}(x_j, x_k) = \begin{cases}
   \frac{1}{r_i}(d_{\RR^N}(x_j, x_k)-\rho_i) & \text{if $j = i$ or $k = i$}\\
 \infty	& \text{otherwise.} \end{cases}$$ 
@@ -785,17 +787,16 @@ This distance definition gives us an extended pseudo-metric space.
 
 Let $\textbf{EPMet}$ be the category of extended pseudo-metric spaces where the
 morphisms are non-expansive maps.
+(This condition that an edge must be taken to a shorter edge is analogous to
+the condition that a morphism of fuzzy sets must take an element $a$ to an
+element with a higher membership strength.)
 Let $\textbf{FinEPMet}$ be the sub-category of $\textbf{EPMet}$ whose objects
 are finite extended pseudo-metric spaces.
-Note that each of the pairs $(D, d_{x_i})$ for $x_i\in D$ gives an object of
-$\textbf{FinEPMet}$.
+We restrict to this sub-category, whose spaces have only finitely many points,
+as our dataset $D$ will always be finite so $(D, d_{x_i})$ gives us an object
+in this category.
 
-Let $\textbf{sFuzz}$ be the category of fuzzy simplicial sets (which are
-functors $\Delta^{op}\to \textbf{Fuzz}$) whose morphisms are natural
-transformations between the functors.
-Let $\textbf{Fin-sFuzz}$ be the
-sub-category of $\textbf{sFuzz}$ consisting of the fuzzy simplicial sets with
-a finite number of non-degenerate simplices, defined as follows.
+Let $\textbf{Fin-sFuzz}$ be the sub-category of $\textbf{sFuzz}$ consisting of the fuzzy simplicial sets with a finite number of non-degenerate simplices, defined as follows.
 Let $X$ be
 a fuzzy simplicial set.
 An element of $X([n])$ is \emph{degenerate} if its
