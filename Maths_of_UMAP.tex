@@ -637,10 +637,13 @@ $n$-simplices.
 We omit the $n$ as it is almost always clear from the context.
 } One can check that we have the relation that, for $i \leq j$, $d_id_j
 = d_{j-1}d_i$.
-Now we can give the following definition: a \emph{Delta complex}
-$X$ is a collection of sets $X^i$ with, for each $n\geq 0$ and $0\leq i\leq n$,
-a map $d_i: X^{n}\to X^{n-1}$ satisfying the relation $d_id_j = d_{j-1}d_i$ for
-all $i\leq j$.
+Now we can give the following definition.
+
+\begin{defn}
+  A \emph{Delta complex} $X$ is a collection of sets $X^i$ with, for each
+  $n\geq 0$ and $0\leq i\leq n$, a map $d_i: X^{n}\to X^{n-1}$ satisfying the
+  relation $d_id_j = d_{j-1}d_i$ for all $i\leq j$.
+\end{defn}
 
 We interpret the elements of $X^n$ as the $n$-simplices of the Delta complex.
 The difference between Delta complexes and simplicial complexes is that in
@@ -671,8 +674,11 @@ Let $\Delta$ be the category whose
 elements are the finite ordered sets $[n]$, and whose morphisms are
 order-preserving maps $[m]\to [n]$.
 (Compare to $\hat{\Delta}$ where the
-morphisms are strictly order-preserving maps.) A \emph{simplicial set} is
-a functor $X: \Delta^{op}\to \textbf{Set}$.
+morphisms are strictly order-preserving maps.)
+
+\begin{defn}
+  A \emph{simplicial set} is a functor $X: \Delta^{op}\to \textbf{Set}$.
+\end{defn}
 
 The difference between a Delta complexes and a simplicial set is that in
 a simplicial set, we allow degenerate simplices.
@@ -690,8 +696,12 @@ information of all its degenerate simplices.
 A \emph{fuzzy set} is a generalisation of a set where, rather than elements
 being either in the set or not, there is a continuous membership function which
 one can think of as a probability.
-It is a set of objects $A$ and a function
-$\mu: A\to [0, 1]$, where if $\mu(a) = 1$, $a$ is definitely in the fuzzy set.
+
+\begin{defn}
+  A \emph{fuzzy set} is a set of objects $A$ and a membership function $\mu:
+  A\to [0, 1]$, where if $\mu(a) = 1$, $a$ is definitely in the fuzzy set.
+\end{defn}
+
 The category $\textbf{Fuzz}$ of fuzzy sets has fuzzy sets as objects, and maps
 of sets $f: A\to B$ such that $f\of \mu(a) \geq \mu(a)$ as morphisms.\footnote{
   We can also define fuzzy sets categorically.
@@ -713,10 +723,15 @@ See~\cite{Weng} for the definition of a sheaf in the
   category theoretic language we want here, where you replace the category of
   R-modules with with $\textbf{Set}$.} (That is, the maps are functions that
 take elements of $A$ to elements of $B$ of the same or higher membership
-strength.) Then a \emph{fuzzy simplicial set} is a functor $X: \Delta^{op}\to
-\textbf{Fuzz}$.\footnote{ One nice property of these fuzzy simplicial sets is
-that the membership strength of the face of a simplex is at least the membership
-strength of the simplex.}
+strength.) 
+
+\begin{defn}
+  A \emph{fuzzy simplicial set} is a functor $X: \Delta^{op}\to \textbf{Fuzz}$.
+\end{defn}
+
+One nice property of these fuzzy simplicial sets is that the membership
+strength of the face of a simplex is at least the membership strength of the
+simplex.
 
 \section{Converting between metric spaces and fuzzy simplicial sets}
 \label{section_adjunction}
