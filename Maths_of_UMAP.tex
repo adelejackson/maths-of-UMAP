@@ -807,8 +807,8 @@ element with a higher membership strength.)
 Let $\textbf{FinEPMet}$ be the sub-category of $\textbf{EPMet}$ whose objects
 are finite extended pseudo-metric spaces.
 We restrict to this sub-category, whose spaces have only finitely many points,
-as our dataset $D$ will always be finite so $(D, d_{x_i})$ gives us an object
-in this category.
+as our dataset $D$ will always be finite so $(D, d_{x_i})$ will always gives us
+an object in this category.
 
 The main theorem of~\cite{McInnes18}, which is a slight modification of the main
 theorem of~\cite{Spivak}, gives a translation between the category of finite
@@ -818,19 +818,23 @@ extended pseudo-metric spaces and the category of finite fuzzy simplicial sets.
   $\textbf{Fin-sFuzz}$ given by $FinSing: \textbf{FinEPMet}\to
   \textbf{Fin-sFuzz}$ and $FinReal: \textbf{Fin-sFuzz}\to \textbf{FinEPMet}$,
   with $FinReal\dashv FinSing$.
-\end{thm} The functors in this theorem are the
-  following.\footnote{ See~\cite{McInnes18} for a categorical definition of
-  these functors that makes it easier to prove they are adjoint.} The functor
-  $FinReal: \textbf{Fin-sFuzz}\to\textbf{FinEPMet}$ takes a finite simplicial
-  set $X$ to the finite metric space $T$ whose elements are the vertices of $X$.
-  The metric on $T$ is defined as follows.
-Let $\mu$ be the membership strength
-  function for the simplices of $X$.\footnote{ We do not define this precisely.
+\end{thm}
+
+The functors in this theorem are the following.\footnote{
+  See~\cite[Section 2]{McInnes18} for a categorical definition of
+  these functors that makes it easier to prove they are adjoint.
+}
+The functor $FinReal: \textbf{Fin-sFuzz}\to\textbf{FinEPMet}$ takes a finite
+fuzzy simplicial set $X$ to the finite extended pseudo-metric space $T$ whose
+elements are the vertices of $X$ (so the set $X([0])$), and whose metric is
+defined as follows.
+Let $\mu$ be the membership strength function for the simplices of $X$.\footnote{
+  We do not define this precisely.
   See the remark after Definition 1.1 of~\cite{Spivak} for a rigorous
-  definition; Spivak's characteristic form is our membership strength function.}
-  For $x, y\in T$, let $A$ be the set of all subsets of $T$ containing both $x$
-  and $y$.
-Then $d_T(x, y) = \min_{U\in A} -\log(\mu(U))$.
+  definition: Spivak's characteristic form is our membership strength function.
+}
+For $x, y\in X([0]) := T$, let $e$ be the edge between $x$ and $y$ in $X([1])$.
+Then $d_T(x, y) = -\log(\mu(U)).$
 
 The functor $FinSing: \textbf{FinEPMet}\to \textbf{Fin-sFuzz}$ takes an finite
 extended pseudo-metric space $Y$ to a finite fuzzy simplicial set, which is
