@@ -526,8 +526,12 @@ pseudo-metric spaces.
 A simplicial set is a combinatorial way of describing a space.
 It generalises a simplicial complex in more naturally category theoretic
 language.
-We will define a simplicial complex, then a Delta complex, and then give an
-informal definition of a simplicial set.
+We will define a simplicial complex, then generalise to a Delta complex and
+a simplicial set.
+Finally, we will define a fuzzy set and explain how to get a fuzzy simplicial
+set.
+
+\subsection{Simplicial sets}
 
 A topological space is a set of points along with a list of all open sets in
 the space.
@@ -658,9 +662,9 @@ Unlike simplicial complexes, we can give an equivalent definition of Delta
 complexes in category theoretic language.
 
 \begin{defn}[Delta complex II]
-  Let $\hat{\Delta}$ be the category whose objects are finite ordered sets
-  $$[n] := [0,1,\dots,n]$$
-  and whose morphisms are strictly order-preserving maps $[m]\to[n]$.
+  Let $\hat{\Delta}$ be the category whose objects are finite ordered sets $[n]
+  := [0,1,\dots,n]$ and whose morphisms are strictly order-preserving maps
+  $[m]\to[n]$.
   A \emph{Delta complex} is a functor $X: \hat{\Delta}^{op}\to \textbf{Set}$.
 \end{defn}
 
@@ -701,6 +705,8 @@ We interpret $X(f)(e)$ to be a 2-simplex (a triangle) that has been collapsed
 into an edge, which we call a \emph{degenerate} simplex.
 A simplicial set carries the information of all possible degenerate simplices,
 while a Delta complex has none of them.
+
+\subsection{Fuzzy sets}
 
 A \emph{fuzzy set} is a generalisation of a set where, rather than elements
 being either in the set or not, there is a continuous membership function which
