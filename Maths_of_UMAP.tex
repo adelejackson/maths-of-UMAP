@@ -254,14 +254,45 @@ normalise by $r_x$ in each of the $N_k(x)$ for $x\in D$.
 Thus, by the lemma, we can approximate distances from $x$ to points in $N_k(x)$
 as follows.
 Fix a value of $k$.
-Now we can calculate the distance in $M$ from $x_i$ to $x_j$ to be
-approximately
+Now we can calculate the distance in $M$, based at $x_i$, from $x_i$ to $x_j$
+to be approximately
 $$\frac{1}{r_i}d_{\RR^N}(x_i, x_j),$$
 where $r_i$ is the distance from $x_i$ to its $k^{th}$-nearest neighbour.
 To reduce the impact of noise in the distribution of datapoints on the value of
 $r_i$, in practice we take $r_i$ to be the value such that
 $$\sum_{j=1}^k\exp\left(\frac{-|x_i-x_{i_j}|}{r_i}\right) = \log_2(k)$$
 where $\{x_{i_1},\ldots,x_{i_k}\}$ are the $k$ nearest neighbours of $x_i$.
+
+We now modify these distances in two ways.
+Note that the distance in $M$, based at $x_i$, from $x_j$ to $x_k$ for
+$j,k\not= i$ is not defined.
+We set this to $\infty$ to signal this.
+To avoid having isolated points, we also assume the manifold is locally
+connected, so has no isolated points, and that there are enough datapoints that
+no datapoint is in its own connected component.
+To enforce this, let $\rho_i$ be the distance from $x_i$ to its nearest
+neighbour.
+Then we set
+$$d_{x_i}(x_i, x_j)=\frac{1}{r_i}\max(0, d_{\RR^N}(x_i,
+x_j)-\rho_i).$$
+The effect of this modification is to force the distance from $x_i$ to its
+nearest neighbour to be 0.
+
+Following this process gives us an \emph{extended pseudo-metric space} for each
+choice of $x_i$.
+We get an extended pseudo-metric, rather than a metric, as some of our
+distances are infinite and some distances between distinct points are zero.
+\begin{defn}
+  An \emph{extended pseudo-metric space} is a set $X$ with a function $d:
+  X\times X\to \RR \cup \{\infty\}$ satisfying the following conditions.
+  First, the metric is non-negative and symmetric.
+  Second, $d(x, x) = 0$ for all $x$.
+  Finally, let $x,y,z\in X$.
+  Then either $d(x,z) = 0$, or $d(x,z)\leq d(x,y)+d(y,z)$.
+\end{defn}
+The word ``pseudo`` refers to the weakening of the condition that $d(x,y) = 0$
+if and only if $x = y$, and ``extended`` refers to the addition of the value
+$\infty$.
 
 This setup presents us with a problem.
 The distance we get from $x_i$ to $x_j$ using this method will in general be
@@ -324,7 +355,6 @@ One familiar example of a category is $\textbf{Vect}$.
 This is the category whose objects are real vector spaces (of all dimensions),
 where the morphisms between two vector spaces $V$ and $W$ are the linear
 transformations $V\to W$.
-
 Another example is $\textbf{Set}$, whose objects are sets, and morphisms are
 functions between sets.
 
@@ -677,45 +707,24 @@ strength of the simplex.}
 \section{Converting between metric spaces and fuzzy simplicial sets}
 \label{section_adjunction}
 
-We will now define an extended pseudo-metric space, which formalise our metric
-spaces defined relative to a datapoint, and give the adjunction from
-these to fuzzy simplicial sets.
+We will now give the adjunction from extended pseudo-metric spaces to fuzzy
+simplicial sets.
 
 Let $x_i$ be a fixed datapoint in the dataset $D$.
-From
-Section~\ref{section_uniform}, using the manifold metric based at $x_i$, we can
-approximate the distance from $x_i$ to any other point $x_j$ in $D$ by
-$d_{x_i}(x_i, x_j) = \frac{1}{r_i}d_{\RR^N}(x_i, x_j)$.
-This gives us a partly
-defined metric space, where we know the distance between $x_i$ and $x_j$ for all
-$j$, but not between $x_j$ and $x_k$ for $j, k\not= i$.
-Let $\rho_i$ be the
-distance from $x_i$ to its nearest neighbour in $D$ in $\RR^N$.
-As we have
-assumed $M$ is locally connected, to force $x_i$ to be connected to its nearest
-neighbour, for $j\not= i$, set $$d_{x_i}(x_i, x_j)
-= \frac{1}{r_i}(d_{\RR^N}(x_i, x_j)-\rho_i).$$ Now, this definition means that
-$x_i$ and its nearest neighbour are distance 0 apart.
-As, for $j, k\not= i$, we
-do not know the distances between $x_j$ and $x_k$ relative to $x_i$, we set this
-to infinity.
-In summary, $$d_{x_i}(x_j, x_k) = \begin{cases}
+Recall that, from Section~\ref{section_uniform}, using the manifold metric
+based at $x_i$, we can approximate the distance based at $x_i$ between points
+$x_j, x_k\in D$
+by 
+$$d_{x_i}(x_j, x_k) = \begin{cases}
   \frac{1}{r_i}(d_{\RR^N}(x_j, x_k)-\rho_i) & \text{if $j = i$ or $k = i$}\\
-\infty	& \text{otherwise.} \end{cases}$$ We now no longer have a metric space:
-instead we have the following generalisation.
+\infty	& \text{otherwise.} \end{cases}$$ 
+This distance definition gives us an extended pseudo-metric space.
 
-An \emph{extended-pseudo-metric space} is a set $X$ and a function $d: X\times
-X\to \RR\cup\{\infty\}$ such that (a) $d(x, y) \geq 0$, (b) $d(x, x) = 0$, (c)
-$d(x, y) = d(y, x)$ and (d) either $d(x, z) = \infty$ or $d(x, z) \leq d(x, y)
-+ d(y, z)$.
-Note that this allows for infinite distances, and also for $d(x, y)
-= 0$ when $x\not= y$.
-
-Let $\textbf{EPMet}$ be the category of extended-pseudo-metric spaces where the
+Let $\textbf{EPMet}$ be the category of extended pseudo-metric spaces where the
 morphisms are non-expansive maps.
-Let $\textbf{FinEPMet}$ be the sub-category
-of $\textbf{EPMet}$ whose objects are finite extended-pseudo-metric spaces.
-Note that each of our approximations of distances within $D$ is an element of
+Let $\textbf{FinEPMet}$ be the sub-category of $\textbf{EPMet}$ whose objects
+are finite extended pseudo-metric spaces.
+Note that each of the pairs $(D, d_{x_i})$ for $x_i\in D$ gives an object of
 $\textbf{FinEPMet}$.
 
 Let $\textbf{sFuzz}$ be the category of fuzzy simplicial sets (which are
@@ -755,7 +764,7 @@ Let $\mu$ be the membership strength
 Then $d_T(x, y) = \min_{U\in A} -\log(\mu(U))$.
 
 The functor $FinSing: \textbf{FinEPMet}\to \textbf{Fin-sFuzz}$ takes an finite
-extended-pseudo-metric space $Y$ to a finite fuzzy simplicial set, which is
+extended pseudo-metric space $Y$ to a finite fuzzy simplicial set, which is
 a functor from $\Delta^{op}\to \textbf{Fuzz}$.
 It acts as follows:
 $FinSing(Y)([n])$ is the fuzzy set of $(n+1)$-vertex subsets of the datapoints
