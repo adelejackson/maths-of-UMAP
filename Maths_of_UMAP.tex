@@ -192,14 +192,26 @@ This assumption means that $D$ approximates $M$ well.
 
 Note that we have two notions of distance between our datapoints: the distance
 from $\RR^N$, and the ``true'' distance in $M$.
-To reconstruct $M$, we wish to reconstruct thsi second distance.
-If we assume that the metric\footnote{
-  A \textit{metric} on a space $X$ is a function $d: X\times X\to \RR$ such that
-  $d(x, y) \geq 0$, $d(x, y) = d(y, x)$, $d(x, y) = 0$ if and only if $x = y$,
-  and $d(x, z) \leq d(x, y) + d(y, z)$.
-  We view $d(x, y)$ as the distance from $x$ to $y$.
-}
-on $M$ is locally constant, we get the following lemma.
+To reconstruct $M$, we wish to reconstruct this second distance.
+We now formally define the mathematical object we wish to reconstruct.
+
+\begin{defn}
+  A \emph{metric} on a set of points $X$ is a function $d: X\times X\to \RR$
+  that satisfies the following conditions.
+  First, the metric is non-negative: $d(x, y) \geq 0$ for all $x, y\in X$.
+  Second, the function is symmetric: $d(x, y) = d(y, x)$ for all $x, y\in X$.
+  Third, the function distinguishes points: $d(x, y) = 0$ if and only if $x
+  = y$.
+  Finally, a metric satisfies the triangle inequality: $d(x, z)\leq d(x, y)
+  + d(y, z)$ for all $x,y,z\in X$.
+\end{defn}
+
+The words ``metric`` and ``distance function`` are interchangeable.
+A \emph{metric space} is a the pair $(X, d)$, where $X$ is a set of points and
+$d$ is a metric for $X$.
+
+If we assume that the metric on $M$ is locally constant, we get the following
+lemma.
 We will show that this lemma allows us to approximate the distance between two
 points $x, y\in D$ as measured in $M$, so long as $x$ and $y$ are close enough
 in $\RR^N$, by normalising by the distance from $x$ to its $k$-nearest
@@ -257,10 +269,7 @@ different to that from $x_j$ to $x_i$, as $r_j\not= r_i$.
 This is due to the fact that, while the $x_i$ are uniformly drawn from the
 manifold, they are not all the same distance apart.
 We need a technique for combining a family of locally-defined finite metric
-spaces\footnote{
-  A metric space is a set of points with an associated metric.
-}
-to get a global structure.
+spaces to get a global structure.
 This is where we will use the adjunction between extended pseudo-metric spaces
 and fuzzy simplicial sets.
 
