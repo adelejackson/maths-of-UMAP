@@ -837,33 +837,40 @@ For $x, y\in X([0]) := T$, let $\{U\}$ be the set of simplices of $X$ (of any
 dimension) with both $x$ and $y$ as vertices.
 Then $d_T(x, y) = \min_{U}-\log(\mu(U)).$
 
-The functor $FinSing: \textbf{FinEPMet}\to \textbf{Fin-sFuzz}$ takes an finite
-extended pseudo-metric space $Y$ to a finite fuzzy simplicial set, which is
-a functor from $\Delta^{op}\to \textbf{Fuzz}$.
-It acts as follows:
-$FinSing(Y)([n])$ is the fuzzy set of $(n+1)$-vertex subsets of the datapoints
-$\{x_{k_0},\ldots,x_{k_n}\}$ where the subset has membership strength
-$$\mu(\{x_{k_0},\ldots,x_{k_n}\} = \min_{i, j} e^{-d(x_{k_i}, x_{k_j})}.$$
+The functor $FinSing: \textbf{FinEPMet}\to\textbf{Fin-sFuzz}$ is not used
+directly in the UMAP algorithm.
+We define it for completeness.
+Note that $FinSing$ takes an extended pseudo-metric space $Y$ to a finite fuzzy
+simplicial set, which itself is a functor from $\Delta^{op}\to \textbf{Fuzz}$.
+It acts as follows.
+The functor $FinSing(Y)$ takes $[n]$ to the fuzzy set of $(n+1)$-vertex subsets
+of the points of $Y$.
+If $\{x_{k_0},\ldots,x_{k_n}\}$ is such a subset, then in $FinSing(Y)([n])$ its
+membership strength is
+$$\mu(\{x_{k_i}\}) = \min_{i,j} e^{-d(x_{k_i}, x_{k_j})}.$$
+Its action on the morphisms is in the induced action from comparing vertices.
 
-Given this translation, we can convert a set of datapoints $D$ to a family of
-elements of $\textbf{FinEPMet}$, and from that to a family of finite fuzzy
-simplicial sets $FinSing(D, d_{x_i})$ for $x_i\in D$.
-Now, set the \emph{fuzzy
-topological representation} of $D$ to be $$\bigcup_{i=1}^n FinSing(D, d_{x_i})$$
-where the union is some choice of a union of fuzzy sets.
-We know that each of
-the $FinSing(D, d_{x_i})$ has the same set of objects, which are all simplices
-whose vertices are in $D$.
-Now, if $(A, \mu)$ and $(A, \nu)$ are two fuzzy sets
-with the same underlying set of objects, one reasonable definition of the union
-$(A, \mu) \cup (A, \nu)$ is $(A, (\mu\cup\nu))$ where $(\mu\cup\nu)(a) = \mu(a)
-\bot \nu(a)$ for $\bot$ some t-conorm.
-The current implementation of UMAP uses
-$x\bot y = x+y-xy$, which is the obvious t-conorm to use if you interpret
-$\mu(a)$ and $\nu(a)$ as probabilities of the simplex $a$ existing, assume these
-are independent between the different local metric spaces, and do not care about
-higher-dimensional simplices (as, for reasons of computational complexity, we
-will not).
+To summarise, by Section~\ref{section_uniform} we can convert a set of
+datapoints $D$ to a family of elements of $\textbf{FinEPMet}$, $\{(D,
+d_{x_i})\}_{x_i\in D}$.
+Using the adjoint pair of functors, we can further translate this to a family
+of finite fuzzy simplicial sets $FinSing(D, d_{x_i})$ for $x_i\in D$.
+
+
+Now, set the \emph{fuzzy topological representation} of $D$ to be
+$$\bigcup_{i=1}^n FinSing(D, d_{x_i})$$ where the union is some choice of
+a union of fuzzy sets.
+We know that each of the $FinSing(D, d_{x_i})$ has the same set of objects,
+which are all simplices whose vertices are in $D$.
+Now, if $(A, \mu)$ and $(A, \nu)$ are two fuzzy sets with the same underlying
+set of objects, one reasonable definition of the union $(A, \mu) \cup (A, \nu)$
+is $(A, (\mu\cup\nu))$ where $(\mu\cup\nu)(a) = \mu(a) \bot \nu(a)$ for $\bot$
+some t-conorm.
+The current implementation of UMAP uses $x\bot y = x+y-xy$, which is the
+obvious t-conorm to use if you interpret $\mu(a)$ and $\nu(a)$ as probabilities
+of the simplex $a$ existing, assume these are independent between the different
+local metric spaces, and do not care about higher-dimensional simplices (as,
+for reasons of computational complexity, we will not).
 
 \section{Finding a good low-dimensional representation}
 
