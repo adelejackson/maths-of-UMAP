@@ -521,31 +521,39 @@ interpret the opposite maps as restrictions.
 \section{Fuzzy simplicial sets}
 \label{section_fss}
 
-The adjunction we will define is between fuzzy simplicial sets and extended
+We will now define an adjunction between fuzzy simplicial sets and extended
 pseudo-metric spaces.
-A simplicial set is a combinatorial way of describing
-a space, which generalises a simplicial complex.
+A simplicial set is a combinatorial way of describing a space.
+It generalises a simplicial complex in more naturally category theoretic
+language.
+We will define a simplicial complex, then a Delta complex, and then give an
+informal definition of a simplicial set.
 
-A simplicial complex describes a topological space\footnote{ A topological space
-is a space with associated data consisting of all open sets in the space.
-Manifolds and metric spaces are topological spaces with some more structure on
-them.} in a combinatorial way.\footnote{ This section follows the exposition
-in~\cite{Friedman08}, which is an excellent geometrically-motivated explanation
-of simplicial sets and simplicial homotopy theory.
-See that document for more
-detail, motivation and examples of these definitions.}
+A topological space is a set of points along with a list of all open sets in
+the space.
+Manifolds and metric spaces are both topological spaces with some more
+structure on them.
+A simplicial complex describes a topological space in a combinatorial
+way by building it out of simplices.\footnote{
+  This section follows the exposition in~\cite{Friedman08}, which is an
+  excellent geometrically-motivated explanation of simplicial sets and
+  simplicial homotopy theory.
+  See that document for more detail, motivation and examples of these
+  definitions.
+}
 
+\begin{defn}
 A (geometric) \emph{$n$-simplex} is the convex hull spanned by a set of $n+1$
 linearly independent vertices $\{x_0,\dots, x_n\}$ in Euclidean space.
-That is,
-a geometric $n$-simplex is $\{\sum_{i=0}^n t_ix_i\,|\, t_i\geq 0, \sum_{i=0}^n
-t_i = 1\}$.
-A $0$-simplex is a single point; a $1$-simplex an interval;
-a $2$-simplex a triangle.
+\end{defn}
+
+To give an equivalent definition, a geometric $n$-simplex is the set
+$$\{\sum_{i=0}^n t_ix_i\,|\, t_i\geq 0, \sum_{i=0}^n t_i = 1\}.$$
+A $0$-simplex is a single point; a $1$-simplex an interval; a $2$-simplex
+a triangle.
 See Figure~\ref{fig_simplices} for a depiction.
-Note
-that the convex hull spanned by a $n$-vertex subset of the $\{x_i\}$ is itself
-an $(n-1)$-dimensional simplex.
+Note that the convex hull spanned by a $n$-vertex subset of the
+$\{x_i\}_{i=0}^n$ is itself an $(n-1)$-dimensional simplex.
 We call this a \emph{face} of the $n$-simplex.
 
 \begin{figure} \centering
@@ -555,38 +563,44 @@ We call this a \emph{face} of the $n$-simplex.
 \label{fig_simplices} \end{figure}
 
 In topology, we often consider spaces up to \emph{homeomorphism}.
-Let $X$ and
-$Y$ be topological spaces.
-A map $f: X\to Y$ is a \emph{homeomorphism} if it is
-a continuous bijection with a continuous inverse.
-For example, there is
-a homeomorphism between a circle and an ellipse, but not between a circle and an
-interval.
-Note that homeomorphisms consider only the open sets of the space,
-and are not affected by any metric or other structure on the space.
-Geometric
-$n$-simplices have the property that for any two simplices $T$ and $U$, $T$ and
-$U$ are homeomorphic.
+\begin{defn}
+  Let $X$ and $Y$ be topological spaces.
+  A map $f: X\to Y$ is a \emph{homeomorphism} if it is a continuous bijection
+  with a continuous inverse.
+\end{defn}
 
-We can describe manifolds as simplicial complexes by decomposing them into
-simplices.
-A \emph{geometric simplicial complex} $X$ is a collection of
-simplices in $\RR^N$ such that (a) for any simplex in $X$, all of its faces are
-also in $X$, and (b) for any two simplices in $X$, their intersection is either
-empty or is a face of both of them.
-Note that, up to homeomorphism, we can
-describe $X$ by listing the vertices of each simplex.
-Common vertices then
-allow us to recover which simplices share faces.
+For example, there is a homeomorphism between a circle and an ellipse, but not
+between a circle and an interval.
+Note that whether or not a function is a homeomorphism depends only on the open
+sets of the space, and is not affected by any metric or other structure on the
+space.
+Geometric $n$-simplices have the property that all $n$-simplices are
+homeomorphic.
+As a result, we can talk about an $n$-simplex as an abstract combinatorial
+object, without reference to a particular embedding in $\RR^N$.
+We can describe topological spaces as simplicial complexes by decomposing them
+into simplices.
 
-Generalising this idea, as simplices are defined by their vertices, an
-(abstract) \emph{simplicial complex} $X$ is a series of sets $X^i$ ($i\geq 0$)
-such that the elements of $X^n$ (the $n$-simplices) are $(n+1)$-element sets
-that satisfy the following condition: for any $\{x_i\}_{i=0}^n\in X^n$, any
-$n$-element subset of this set is in $X^{n-1}$.
-Note that different simplices
-can have common elements, which indicates they have vertices, edges, or other
-sub-faces in common.
+\begin{defn}
+  A \emph{geometric simplicial complex} $X$ is a collection of simplices in
+  $\RR^N$ such that (a) for any simplex in $X$, all of its faces are also in
+  $X$, and (b) for any two simplices in $X$, their intersection is either empty
+  or is a face of both of them.
+\end{defn}
+
+Note that, up to homeomorphism, we can describe $X$ by listing the vertices of
+each simplex.
+The common vertices allow us to recover which simplices share faces.
+We can generalise this idea as follows.
+
+\begin{defn}
+  An (abstract) \emph{simplicial complex} $X$ is a series of sets $X^i$ ($i\geq
+  0$) such that the elements of $X^n$ (the $n$-simplices) are $(n+1)$-element
+  sets that satisfy the following condition: for any $\{x_i\}_{i=0}^n\in X^n$,
+  any $n$-element subset of this set is in $X^{n-1}$.
+\end{defn}
+
+Note that different simplices can have common elements, which indicates they have vertices, edges, or other sub-faces in common.
 For example, we can describe a square $S$, formed by
 gluing two triangles together, by \begin{align*} S^0	&=
   \{\{a\},\{b\},\{c\},\{d\}\} & S^1	&= \{\{a, b\}, \{a, c\}, \{a, d\}, \{b, c\},
