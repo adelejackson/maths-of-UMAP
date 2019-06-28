@@ -833,8 +833,9 @@ Let $\mu$ be the membership strength function for the simplices of $X$.\footnote
   See the remark after Definition 1.1 of~\cite{Spivak} for a rigorous
   definition: Spivak's characteristic form is our membership strength function.
 }
-For $x, y\in X([0]) := T$, let $e$ be the edge between $x$ and $y$ in $X([1])$.
-Then $d_T(x, y) = -\log(\mu(U)).$
+For $x, y\in X([0]) := T$, let $\{U\}$ be the set of simplices of $X$ (of any
+dimension) with both $x$ and $y$ as vertices.
+Then $d_T(x, y) = \min_{U}-\log(\mu(U)).$
 
 The functor $FinSing: \textbf{FinEPMet}\to \textbf{Fin-sFuzz}$ takes an finite
 extended pseudo-metric space $Y$ to a finite fuzzy simplicial set, which is
