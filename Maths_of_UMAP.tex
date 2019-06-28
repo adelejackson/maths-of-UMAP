@@ -600,14 +600,19 @@ We can generalise this idea as follows.
   any $n$-element subset of this set is in $X^{n-1}$.
 \end{defn}
 
-Note that different simplices can have common elements, which indicates they have vertices, edges, or other sub-faces in common.
-For example, we can describe a square $S$, formed by
-gluing two triangles together, by \begin{align*} S^0	&=
+Note that if two different simplices have common elements, this indicates that
+they have vertices, edges, or other sub-faces in common.
+For example, we can describe a square $S$, formed by gluing two triangles
+together, by
+\begin{align*}
+  S^0	&=
   \{\{a\},\{b\},\{c\},\{d\}\} & S^1	&= \{\{a, b\}, \{a, c\}, \{a, d\}, \{b, c\},
   \{c, d\}\}\\ S^2	&= \{\{a,b,c\}, \{a,c,d\}\}.
-\end{align*} We can describe the
+\end{align*}
+We can describe the
 simplicial complex $X$ depicted in Figure~\ref{fig_simplicial_complex} by
-\begin{align*} X^0	&= \{\{v_0\}, \{v_1\}, \{v_2\}, \{v_3\}, \{v_4\},
+\begin{align*}
+  X^0	&= \{\{v_0\}, \{v_1\}, \{v_2\}, \{v_3\}, \{v_4\},
   \{v_5\}\}\\ X^1	&= \{\{v_0, v_1\}, \{v_0, v_2\}, \{v_0, v_5\}, \{v_1, v_2\},
   \{v_2, v_3\}, \{v_2, v_4\}, \{v_2, v_5\}, \{v_3, v_4\}\}\\ X^2	&= \{\{v_0,
   v_1, v_2\}, \{v_0, v_2, v_5\}, \{v_2, v_3, v_4\}\}.
@@ -619,25 +624,21 @@ simplicial complex $X$ depicted in Figure~\ref{fig_simplicial_complex} by
   Image taken from~\cite{Friedman08}.} \label{fig_simplicial_complex}
 \end{figure}
 
-To abstract this idea further, let all abstract simplices come with an ordering
-on its vertices.
-Write an (ordered) $n$-simplex as $[x_0,\dots,x_n]$.
-Note
-that we can characterise an $n$-simplex in a simplicial complex by its $n+1$
-\emph{face maps}, where the $i^{th}$ face map sends the simplex to the face
-$[x_0,\dots, x_{i-1},x_{i+1},\dots, x_n]$; that is, it sends the simplex to the
-face formed by removing the $i^{th}$ vertex from the original simplex.
-Let
-$d_i$ be the $i^{th}$ face map.\footnote{ Note that $d_i$ is not a map of
-topological spaces.
-It is a formal map that to a simplex assigns its $i^{th}$
-face.
-Properly, we should write $d_i^n$ for the $i^{th}$ face map on
-$n$-simplices.
-We omit the $n$ as it is almost always clear from the context.
-} One can check that we have the relation that, for $i \leq j$, $d_id_j
+To abstract this idea further, fix an ordering on the vertices for each
+simplex.
+We write an ordered $n$-simplex as $[x_0,\ldots,x_n]$.
+We can characterise an $n$-simplex in a simplicial complex by its $n+1$ face
+maps, where the $i^{th}$ face map $d_i$ sends the simplex to the face formed by
+removing the $i^{th}$ vertex: $[x_0,\ldots,x_{i-1},x_{i+1},\dots,x_n]$.
+Note that $d_i$ is not a map of topological spaces: it is a formal map.
+If we view the simplicial complex as a category whose objects are simplices
+with morphisms for face inclusion, the face maps are morphisms in the opposite
+category.
+
+One can check that we have the relation that, for $i\leq j$, $d_id_j
 = d_{j-1}d_i$.
-Now we can give the following definition.
+As these face maps are enough to characterise the simplices and how they are
+glued together, we can generalise a simplicial complex in the following way.
 
 \begin{defn}
   A \emph{Delta complex} $X$ is a collection of sets $X^i$ with, for each
@@ -646,9 +647,10 @@ Now we can give the following definition.
 \end{defn}
 
 We interpret the elements of $X^n$ as the $n$-simplices of the Delta complex.
-The difference between Delta complexes and simplicial complexes is that in
-simplicial complexes, simplices are identified by their vertex set, while in
-Delta complexes, two distinct simplices may share the same vertex set.
+
+If we add the restriction that the vertex set of each simplex is distinct, this
+is an alternate definition of an abstract simplicial complex.
+In a Delta complex, two distinct simplices may share the same vertex set.
 %For example, the cone depicted in Figure~\ref{fig_cone} is a Delta complex but
 %not a simplicial complex.
 
