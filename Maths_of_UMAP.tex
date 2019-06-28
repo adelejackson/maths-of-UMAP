@@ -768,7 +768,21 @@ We can now define a fuzzy simplicial set.
 One nice property of these fuzzy simplicial sets is that the membership
 strength of the face of a simplex is at least the membership strength of the
 simplex.
+We say that a fuzzy simplicial set $X$ is \emph{finite} if it has a finite number
+of non-degenerate simplices, defined as follows.
+\begin{defn}
+  A simplex $U$ in $X([n])$ is \emph{degenerate} if there is some morphism $f:
+  [n]\to [n-1]$ in $\Delta$ such that $U$ is in the image of $X(f^{op})$.
+\end{defn}
+If $U$ satisfies this condition, then $U$ is a degenerate
+$n$-simplex collapsed onto $X(f^{op})^{-1}(U)$.
+The number of non-degenerate $n$-simplices of $x$ is the number of
+non-degenerate elements of $X([n])$ with positive membership strength.
 
+The category $\textbf{Fin-sFuzz}$ is the full subcategory of $\textbf{sFuzz}$
+on the finite fuzzy simplicial sets.
+That is, its objects are all finite fuzzy simplicial sets, and the morphisms
+are all the morphisms in $\textbf{sFuzz}$ that start and end at these objects.
 
 \section{Converting between metric spaces and fuzzy simplicial sets}
 \label{section_adjunction}
@@ -796,19 +810,10 @@ We restrict to this sub-category, whose spaces have only finitely many points,
 as our dataset $D$ will always be finite so $(D, d_{x_i})$ gives us an object
 in this category.
 
-Let $\textbf{Fin-sFuzz}$ be the sub-category of $\textbf{sFuzz}$ consisting of the fuzzy simplicial sets with a finite number of non-degenerate simplices, defined as follows.
-Let $X$ be
-a fuzzy simplicial set.
-An element of $X([n])$ is \emph{degenerate} if its
-geometric realisation is an $(n-1)$-simplex.
-The number of non-degenerate
-$n$-simplices of $X$ is the number of non-degenerate elements of $X([n])$ with
-positive membership strength.
-Thus $X$ is in $\textbf{Fin-sFuzz}$ if it has
-a finite number of non-degenerate $n$-simplices.
-
 The main theorem of~\cite{McInnes18}, which is a slight modification of the main
-theorem of~\cite{Spivak}, gives a translation between these two categories.
+theorem of~\cite{Spivak}, gives a translation between the category of finite
+extended pseudo-metric spaces and the category of finite fuzzy simplicial sets.
+
 \begin{thm} There is an adjunction between $\textbf{FinEPMet}$ and
   $\textbf{Fin-sFuzz}$ given by $FinSing: \textbf{FinEPMet}\to
   \textbf{Fin-sFuzz}$ and $FinReal: \textbf{Fin-sFuzz}\to \textbf{FinEPMet}$,
