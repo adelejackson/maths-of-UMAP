@@ -877,42 +877,41 @@ for reasons of computational complexity, we will not).
 We now have a method for constructing a fuzzy simplicial set from a given set of
 points in $\RR^n$.
 Let the dataset $D$ be in $\RR^N$.
-Let $E$ be
-a low-dimensional representation of our dataset $D$ in $\RR^m$, for $m < N$.
-To
-evaluate how good $E$ is as a representation of $D$, we compare the fuzzy
+Let $E$ be a low-dimensional representation of our dataset $D$ in $\RR^m$, for
+$m < N$.
+To evaluate how good $E$ is as a representation of $D$, we compare the fuzzy
 simplicial set $X$ constructed from $D$ to one constructed from $E$.
-In
-constructing a fuzzy simplicial set $Y$ from $E$, note that we already know the
-metric of the underlying manifold as it is $\RR^m$ itself.
-Thus, $Y
-= FinSing((E, d))$ where $d$ is the Euclidean metric on $\RR^m$.
-
+In constructing a fuzzy simplicial set $Y$ from $E$, note that we already know
+the metric of the underlying manifold as it is $\RR^m$ itself.
+Thus, $Y = FinSing((E, d))$ where $d$ is the Euclidean metric on $\RR^m$.
 
 Consider the sets of edges in $X$ and $Y$ as fuzzy sets.
-Note that they have
-the same underlying set of elements, which is all edges whose vertices are
-labelled by elements of $D$, and differ only in the membership strength of the
-simplices.
-We define the cross-entropy $C$ of two fuzzy sets with the same
-underlying elements set, $(A, \mu)$ and $(A, \nu)$, as follows~\cite[Definition
-10]{McInnes18}: $$C((A, \mu), (A, \nu)) = \sum_{a\in
-A}\left(\mu(a)\log\left(\frac{\mu(a)}{\nu(a)}\right)
-+ (1-\mu(a))\log\left(\frac{1-\mu(a)}{1-\nu(a)}\right)\right).$$ Note that, in
-our case, $\mu$ is fixed.
+Note that they have the same underlying set of elements, which is all edges
+whose vertices are labelled by elements of $D$, and differ only in the
+membership strength of the simplices.
+We define the cross-entropy $C$ of two fuzzy sets with the same underlying
+elements set, $(A, \mu)$ and $(A, \nu)$, as follows~\cite[Definition
+10]{McInnes18}:
+$$C((A, \mu), (A, \nu)) = \sum_{a\in A} \left( \mu(a) \log\left(
+\frac{\mu(a)}{\nu(a)}\right) + (1-\mu(a))\log\left(\frac{1-\mu(a)}{1-\nu(a)}
+\right)\right).$$
+Note that, in our case, $\mu$ is fixed.
 We can view this formula as follows:
 $\mu(a)\log\left(\frac{\mu(a)}{\nu(a)}\right)$ provides the attractive force, as
 it is minimised if short edges in $D$ correspond to short edges in $E$, since
 the length of the edge is small if $\nu(a)$ is large.
-Then
-$(1-\mu(a))\log\left(\frac{1-\mu(a)}{1-\nu(a)}\right)$ provides the repulsive
-force, as it is minimised if long edges in $D$ correspond to long edges in $E$.
+Then $(1-\mu(a))\log\left(\frac{1-\mu(a)}{1-\nu(a)}\right)$ provides the
+repulsive force, as it is minimised if long edges in $D$ correspond to long
+edges in $E$.
 We can then optimise the embedding using stochastic gradient descent.
-Note that
-$X$ and $Y$ contain many simplices of high dimension.
-For reasons of
-computational cost, the current implementation of UMAP only looks at the
-cross-entropy of the one-dimensional simplices in $X$ and $Y$.
+Note that $X$ and $Y$ contain many simplices of high dimension.
+For reasons of computational cost, the current implementation of UMAP only looks
+at the cross-entropy of the one-dimensional simplices in $X$ and $Y$.
+\footnote{
+	For the definition of the simplices given here, the higher-dimensional
+	simplices are entirely determined by the weights of the edge set, so we lose
+	no information by doing this.
+}
 
 \section{Further reading}
 
@@ -925,8 +924,8 @@ see~\cite{Friedman08}.
 
 For an introduction to category theory aimed at non-mathematicians,
 see~\cite{Spivak18}.
-To better understand the material discussed here, you need
-familiarity with adjunctions (Definition 3.70).
+To better understand the material discussed here, you need familiarity with
+adjunctions (Definition 3.70).
 
 Spivak's proof of the adjunction between the realisation and singular functors
 in the fuzzy set context in~\cite{Spivak} is much more explicit than that in the
